@@ -1,4 +1,4 @@
-const cli = require('commander')
+import cli from 'commander';
 
 cli
   .version('0.0.2')
