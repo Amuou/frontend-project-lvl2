@@ -1,18 +1,28 @@
 import fs from 'fs'
-import { has } from 'lodash'
+import { has, union } from 'lodash'
 
 const types = [
   {
-    name: 'changed',
-    check: ([key, value], second) => has(second, key) && value !== second[key],
-  },
-  {
-    name: 'unchanged',
-    check: ([key, value], second) => has(second, key) && value === second[key],
+    name: 'added',
+    check: (key, first) => !has(first, key),
+    process: (key, first, second) => ['added', key, second[key]],
   },
   {
     name: 'deleted',
-    check: ([key], second) => !has(second, key),
+    check: (key, first, second) => !has(second, key),
+    process: (key, first) => ['deleted', key, first[key]],
+  },
+  {
+    name: 'changed',
+    check: (key, first, second) =>
+      has(second, key) && first[key] !== second[key],
+    process: (key, first) => ['changed', key, first[key]],
+  },
+  {
+    name: 'unchanged',
+    check: (key, first, second) =>
+      has(second, key) && first[key] === second[key],
+    process: (key, first) => ['unchanged', key, first[key]],
   },
 ]
 
@@ -22,22 +32,20 @@ const operators = {
   unchanged: ' ',
 }
 
-const getType = (first, second) =>
-  types.find(({ check }) => check(first, second))
+const getType = (key, first, second) =>
+  types
+    .find(({ check }) => check(key, first, second))
+    .process(key, first, second)
 
 const getDiff = (first, second) => {
-  const typesWithoutAdded = Object.entries(first).map(elem => [
-    getType(elem, second).name,
-    ...elem,
-  ])
-  const typesDiff = Object.entries(second)
-    .reduce(
-      (acc, [key, value]) =>
-        !has(first, key) ? [...acc, ['added', key, value]] : acc,
-      typesWithoutAdded,
-    )
+  const firstKeys = Object.keys(first)
+  const secondKeys = Object.keys(second)
+  const unitedKeys = union(firstKeys, secondKeys)
+  const typesDiff = unitedKeys
+    .map(key => getType(key, first, second))
     .slice()
     .sort()
+    .reverse()
 
   return typesDiff
 }
