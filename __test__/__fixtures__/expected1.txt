@@ -1,9 +1,9 @@
 {
-    timeout: 150
-    verbose: false
   - host: hexlet.io
   + host: google.com
   - reconnect: false
   + reconnect: true
   - proxy: 123.234.53.22
+    timeout: 150
+    verbose: false
 }
