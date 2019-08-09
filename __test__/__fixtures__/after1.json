@@ -1,0 +1,6 @@
+{
+  "host": "google.com",
+  "timeout": 150,
+  "verbose": false,
+  "reconnect": true
+}

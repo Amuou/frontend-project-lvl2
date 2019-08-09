@@ -7,7 +7,7 @@
     "gendiff": "dist/bin/gendiff.js"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "lint": "npx eslint .",
     "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline"
   },
@@ -22,21 +22,25 @@
   },
   "homepage": "https://github.com/Amuou/frontend-project-lvl2#readme",
   "dependencies": {
+    "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
+    "commander": "^2.20.0",
+    "lodash": "^4.17.15"
+  },
+  "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
-    "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
-    "@babel/preset-env": "^7.3.1",
+    "@babel/preset-env": "^7.5.5",
     "babel-eslint": "^10.0.2",
-    "commander": "^2.20.0",
+    "babel-jest": "^24.8.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb-base": "^13.2.0",
     "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2"
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.5.5",
+    "eslint-plugin-babel": "^5.3.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.15.0",
     "eslint-plugin-prettier": "^3.1.0",
+    "jest": "^24.8.0",
     "prettier": "1.18.2"
   }
 }
