@@ -1,5 +1,7 @@
 import fs from 'fs'
+import path from 'path'
 import { has, union } from 'lodash'
+import getParser from './parsers'
 
 const types = [
   {
@@ -37,22 +39,18 @@ const getType = (key, first, second) =>
     .find(({ check }) => check(key, first, second))
     .process(key, first, second)
 
-const getDiff = (first, second) => {
-  const firstKeys = Object.keys(first)
-  const secondKeys = Object.keys(second)
-  const unitedKeys = union(firstKeys, secondKeys)
-  const typesDiff = unitedKeys
+const getDiff = (first, second) =>
+  union(Object.keys(first), Object.keys(second))
     .map(key => getType(key, first, second))
     .slice()
     .sort()
     .reverse()
 
-  return typesDiff
-}
-
 const genDiff = (firstConfig, secondConfig) => {
-  const first = JSON.parse(fs.readFileSync(firstConfig, 'utf8'))
-  const second = JSON.parse(fs.readFileSync(secondConfig, 'utf8'))
+  const firstParser = getParser(path.extname(firstConfig))
+  const secondParser = getParser(path.extname(secondConfig))
+  const first = firstParser(fs.readFileSync(firstConfig, 'utf8'))
+  const second = secondParser(fs.readFileSync(secondConfig, 'utf8'))
   const parseDiff = diff =>
     diff
       .reduce(
