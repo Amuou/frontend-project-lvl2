@@ -24,6 +24,7 @@
   "dependencies": {
     "@babel/plugin-proposal-pipeline-operator": "^7.5.0",
     "commander": "^3.0.0",
+    "ini": "^1.3.5",
     "js-yaml": "^3.13.1",
     "lodash": "^4.17.15"
   },

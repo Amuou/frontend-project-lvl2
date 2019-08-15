@@ -3,9 +3,10 @@ import path from 'path'
 import genDiff from '../src'
 
 const testFiles = [
-  ['before.json', 'after.json', 'expected.txt'],
-  ['before1.json', 'after1.json', 'expected1.txt'],
-  ['before.yaml', 'after.yaml', 'expected.txt'],
+  ['json/before.json', 'json/after.json', 'expected.txt'],
+  ['json/before1.json', 'json/after1.json', 'expected1.txt'],
+  ['yaml/before.yaml', 'yaml/after.yaml', 'expected.txt'],
+  ['ini/before.ini', 'ini/after.ini', 'expected.txt'],
 ]
 
 test.each(testFiles)('genDiff(%s, %s)', (before, after, expected) => {
