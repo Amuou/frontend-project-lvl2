@@ -1,10 +1,8 @@
----
-
-
 extends:
   - airbnb-base
   - prettier
   - 'plugin:jest/recommended'
+  - 'plugin:prettier/recommended'
 
 parser: babel-eslint
 

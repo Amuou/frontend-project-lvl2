@@ -41,7 +41,7 @@ const getType = (key, first, second) =>
 
 const getDiff = (first, second) =>
   union(Object.keys(first), Object.keys(second))
-    .map(key => getType(key, first, second))
+    .map((key) => getType(key, first, second))
     .slice()
     .sort()
     .reverse()
@@ -51,7 +51,7 @@ const genDiff = (firstConfig, secondConfig) => {
   const secondParser = getParser(path.extname(secondConfig))
   const first = firstParser(fs.readFileSync(firstConfig, 'utf8'))
   const second = secondParser(fs.readFileSync(secondConfig, 'utf8'))
-  const parseDiff = diff =>
+  const parseDiff = (diff) =>
     diff
       .reduce(
         (acc, [type, key, value]) =>
