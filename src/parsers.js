@@ -1,5 +1,5 @@
-import yaml from 'js-yaml'
 import ini from 'ini'
+import yaml from 'js-yaml'
 
 const getParser = (fileExtension) => {
   const parsers = {

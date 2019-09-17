@@ -1,12 +1,20 @@
 extends:
   - airbnb-base
+  - plugin:jest/recommended
+  - plugin:import/errors
+  - plugin:import/warnings
+  - plugin:lodash-fp/recommended
   - prettier
-  - 'plugin:jest/recommended'
-  - 'plugin:prettier/recommended'
+  - plugin:prettier/recommended
 
 parser: babel-eslint
 
+parserOptions:
+  ecmaVersion: 2020
+  sourceType: module
+
 env:
+  es6: true
   node: true
   jest: true
 
@@ -14,7 +22,12 @@ plugins:
   - prettier
   - jest
   - babel
+  - lodash-fp
+  - import
+  - simple-import-sort
 
 rules:
   no-console: 0
   prettier/prettier: 'error'
+  simple-import-sort/sort: 'error'
+  sort-imports: 'off'

@@ -1,4 +1,5 @@
 import cli from 'commander'
+
 import genDiff from '.'
 
 cli

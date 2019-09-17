@@ -1,29 +1,30 @@
 import fs from 'fs'
+import _ from 'lodash/fp'
 import path from 'path'
-import { has, union } from 'lodash'
+
 import getParser from './parsers'
 
 const types = [
   {
     name: 'added',
-    check: (key, first) => !has(first, key),
+    check: (key, first) => !_.has(key, first),
     process: (key, first, second) => ['added', key, second[key]],
   },
   {
     name: 'deleted',
-    check: (key, first, second) => !has(second, key),
+    check: (key, first, second) => !_.has(key, second),
     process: (key, first) => ['deleted', key, first[key]],
   },
   {
     name: 'changed',
     check: (key, first, second) =>
-      has(second, key) && first[key] !== second[key],
+      _.has(key, second) && first[key] !== second[key],
     process: (key, first) => ['changed', key, first[key]],
   },
   {
     name: 'unchanged',
     check: (key, first, second) =>
-      has(second, key) && first[key] === second[key],
+      _.has(key, second) && first[key] === second[key],
     process: (key, first) => ['unchanged', key, first[key]],
   },
 ]
@@ -40,7 +41,7 @@ const getType = (key, first, second) =>
     .process(key, first, second)
 
 const getDiff = (first, second) =>
-  union(Object.keys(first), Object.keys(second))
+  _.union(Object.keys(first), Object.keys(second))
     .map((key) => getType(key, first, second))
     .slice()
     .sort()
